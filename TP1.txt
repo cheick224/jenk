@@ -1,0 +1,5 @@
+A1. Les hooks sont stockés dans .git/hooks
+
+A2. Les hooks peuvent être implémentés avec n'importe quel langage. Ils sont souvent écrits en Shell, Python, Ruby et Perl.
+
+A3. Le hook pre-commit est exécuté avant chaque commit

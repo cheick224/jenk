@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+
+import os
+import subprocess
+import sys
+
+print('Exécution du hook pre-commit')
+
+def run(cmd):
+   """A function to run a command and get stdout"""
+   result = subprocess.run(
+       cmd,
+       shell=True,
+       stdout=subprocess.PIPE)
+   return result.stdout.strip().decode('utf-8')
+
+def get_files():
+    stdout = run('git diff --staged --name-only')
+
+    return stdout.split()
+
+
+files = get_files()
+
+print(files)
+
+for file in files:
+    cmd = "pylint {0}".format(file)
+    res = os.system(cmd)
+    if not res == 0:
+        print('Erreur dans le fichier {0}'.format(file))
+        sys.exit(1)
+
+sys.exit(0)
